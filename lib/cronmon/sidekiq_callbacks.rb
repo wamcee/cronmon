@@ -1,16 +1,15 @@
 # frozen_string_literal: true
 
-require "active_support/callbacks"
+require 'active_support/callbacks'
 require_relative './class_methods'
 
 module SidekiqCallbacks
-  # include ClassMethods
   extend ActiveSupport::Concern
 
   def self.prepended(base)
     base.include(ActiveSupport::Callbacks)
 
-    base.define_callbacks :perform unless base.respond_to?(:_perform_callbacks) && base._perform_callbacks.present?
+    base.define_callbacks :perform
 
     class << base
       prepend ClassMethods
