@@ -6,7 +6,14 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    connection_pool (2.2.5)
+    rack (2.2.3)
     rake (13.0.3)
+    redis (4.6.0)
+    sidekiq (6.4.1)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.2.0)
 
 PLATFORMS
   ruby
@@ -14,6 +21,7 @@ PLATFORMS
 DEPENDENCIES
   cronmon!
   rake (~> 13.0)
+  sidekiq (~> 6.4)
 
 BUNDLED WITH
    2.2.3

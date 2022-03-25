@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require_relative './sidekiq_callbacks'
+require 'sidekiq'
+require_relative '../jobs/sidekiq_monitor_schedule_job'
 require 'pry'
 
 module JobMetrics
@@ -12,6 +14,7 @@ module JobMetrics
     around_perform do |job, block|
       create_cron(job)
       create_cron_log(jid)
+      schedule_sidekiq_monitor_job
 
       block.call
 
@@ -30,6 +33,11 @@ module JobMetrics
 
     def update_cron_log(err = nil)
       @cron_log.update(error_log: err, ended_at: Time.now)
+    end
+
+    def schedule_sidekiq_monitor_job
+      time_period = @cron.average_time_period.seconds
+      SidekiqMonitorScheduleJob.perform_in(time_period, @cron_log.id)
     end
   end
 end
