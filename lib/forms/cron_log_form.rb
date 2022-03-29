@@ -2,6 +2,8 @@
 
 require 'dry-initializer'
 
+# The main responsibility fo this class to create/udpate cron log records
+# Used dry initalizer for dry validaing params
 module Forms
   class CronLogForm
     extend Dry::Initializer[undefined: false]

@@ -5,6 +5,8 @@ require 'sidekiq'
 require_relative '../jobs/sidekiq_monitor_schedule_job'
 require 'pry'
 
+# This module is create/update cron_log around the perform action
+# Also do error handling for jobs and log errors in cron log table.
 module JobMetrics
   extend ActiveSupport::Concern
 
@@ -28,7 +30,7 @@ module JobMetrics
     end
 
     def create_cron(job)
-      @cron ||= Cron.find_by(action: job.class.to_s)
+      @cron ||= Cron.find_or_create_by(name: job.class.to_s)
     end
 
     def update_cron_log(err = nil)

@@ -3,6 +3,8 @@
 require 'active_support/callbacks'
 require_relative './class_methods'
 
+# This module responsibility to add active support callbacks dynamically to sidekiq jobs perform method.
+# Checks for run_callbacks boolean and add callbacks accordingly.
 module SidekiqCallbacks
   extend ActiveSupport::Concern
 

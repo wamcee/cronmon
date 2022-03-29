@@ -2,6 +2,7 @@
 
 require 'pry'
 
+# created seperated module to add more such actions around perdorm method of sidekiq
 module ClassMethods
 
   def around_perform(*filters, &blk)
