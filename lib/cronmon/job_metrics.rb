@@ -3,7 +3,6 @@
 require_relative './sidekiq_callbacks'
 require 'sidekiq'
 require_relative '../jobs/sidekiq_monitor_schedule_job'
-require 'pry'
 
 # This module is create/update cron_log around the perform action
 # Also do error handling for jobs and log errors in cron log table.
